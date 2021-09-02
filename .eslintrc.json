@@ -1,9 +1,10 @@
 {
     "extends": [
         "eslint:recommended",
-        "plugins:import/errors",
-        "plugins:import/recommended",
-        "plugins:jsx-a11y/recommended",
+        "plugin:import/errors",
+        "plugin:import/recommended",
+        "plugin:jsx-a11y/recommended",
+        "plugin:react-hooks/recommended",
         "prettier"
     ],
     "rules": {
