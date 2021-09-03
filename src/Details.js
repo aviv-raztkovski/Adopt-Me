@@ -2,6 +2,7 @@ import { Component } from "react";
 import { withRouter } from "react-router-dom"; // eslint-disable-line
 import Carousel from "./Carousel";
 import ErrorBoundry from "./ErrorBoundry";
+import ThemeContext from "./ThemeContext";
 
 class Details extends Component {
     state = { loading: true }; // The Same as below
@@ -48,7 +49,12 @@ class Details extends Component {
                 <Carousel images={images} />
                 <h1>{name}</h1>
                 <h2>{`${animal} - ${breed} - ${city}, ${state}`}</h2>
-                <button>Adopt {name}</button>
+
+                <ThemeContext.Consumer>
+                    {([theme]) => (
+                        <button style={ { backgroundColor: theme } }>Adopt {name}</button>
+                    )}
+                </ThemeContext.Consumer>
                 <p>{description}</p>
             </div>
         );
