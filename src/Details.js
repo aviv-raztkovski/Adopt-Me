@@ -3,9 +3,10 @@ import { withRouter } from "react-router-dom"; // eslint-disable-line
 import Carousel from "./Carousel";
 import ErrorBoundry from "./ErrorBoundry";
 import ThemeContext from "./ThemeContext";
+import Modal from "./Modal";
 
 class Details extends Component {
-    state = { loading: true }; // The Same as below
+    state = { loading: true, showModal: false }; // The Same as below
     // constructor() {
     //     super();
     //     this.state = { loading: true, name: "", animal: "", breed: "",city: "", state: "", description: ""};
@@ -24,7 +25,6 @@ class Details extends Component {
                 json.pets[0]
             )
         );
-
         // Another way to set state:
         // this.setState({
         //     loading: false,
@@ -37,12 +37,24 @@ class Details extends Component {
         // });
     }
 
+    toggleModal = () => this.setState({ showModal: !this.state.showModal });
+    adopt = () => (window.location = "http://bit.ly/pet-adopt");
+
     render() {
         if (this.state.loading) {
             return <h2>Loading...</h2>;
         }
 
-        const { animal, breed, city, state, description, name, images } = this.state;
+        const {
+            animal,
+            breed,
+            city,
+            state,
+            description,
+            name,
+            images,
+            showModal,
+        } = this.state;
 
         return (
             <div className="details">
@@ -52,10 +64,42 @@ class Details extends Component {
 
                 <ThemeContext.Consumer>
                     {([theme]) => (
-                        <button style={ { backgroundColor: theme } }>Adopt {name}</button>
+                        <button
+                            onClick={this.toggleModal}
+                            style={{ backgroundColor: theme }}
+                        >
+                            Adopt {name}
+                        </button>
                     )}
                 </ThemeContext.Consumer>
                 <p>{description}</p>
+                {showModal ? (
+                    <Modal>
+                        <h2>Would you like to adopt {name}?</h2>
+                        <div className="buttons">
+                            <ThemeContext.Consumer>
+                                {([theme]) => (
+                                    <button
+                                        onClick={this.adopt}
+                                        style={{ backgroundColor: theme }}
+                                    >
+                                        Yes
+                                    </button>
+                                )}
+                            </ThemeContext.Consumer>
+                            <ThemeContext.Consumer>
+                                {([theme]) => (
+                                    <button
+                                        onClick={this.toggleModal}
+                                        style={{ backgroundColor: theme }}
+                                    >
+                                        No, I am a heartless monster
+                                    </button>
+                                )}
+                            </ThemeContext.Consumer> 
+                        </div>
+                    </Modal>
+                ) : null}
             </div>
         );
     }
@@ -68,5 +112,5 @@ export default function DetailsWithErrorBoundry() {
         <ErrorBoundry>
             <DetailsWithRouter />
         </ErrorBoundry>
-    )
-};
+    );
+}

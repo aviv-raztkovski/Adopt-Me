@@ -12,8 +12,8 @@ class Carousel extends Component {
     handerlIndexClick = (event) => {
         this.setState({
             active: +event.target.dataset.index,
-        })
-    }
+        });
+    };
 
     render() {
         const { active } = this.state;

@@ -6,10 +6,10 @@ import Details from "./Details";
 import ThemeContext from "./ThemeContext";
 
 const App = () => {
-    const themeHook = useState("darkblue");
+    const themeHook = useState("#ad343e");
 
     return (
-        <ThemeContext.Provider value={themeHook} >
+        <ThemeContext.Provider value={themeHook}>
             <div>
                 <Router>
                     <header>

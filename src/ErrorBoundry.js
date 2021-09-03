@@ -1,10 +1,10 @@
-import {Component} from 'react';
-import {Link, Redirect} from 'react-router-dom'; // eslint-disable-line
+import { Component } from "react";
+import { Link, Redirect } from "react-router-dom"; // eslint-disable-line
 
 class ErrorBoundry extends Component {
-    state = {hasError: false, redirect: false};
+    state = { hasError: false, redirect: false };
     static getDerivedStateFromError() {
-        return {hasError: true};
+        return { hasError: true };
     }
 
     componentDidCatch(error, info) {
@@ -13,17 +13,16 @@ class ErrorBoundry extends Component {
     }
 
     render() {
-        if (this.state.redirect){
+        if (this.state.redirect) {
             return <Redirect to="/" />;
-        }
-        else if(this.state.hasError) {
+        } else if (this.state.hasError) {
             return (
                 <h2>
-                    This Listing Has An Error. 
-                    <Link to='/'>Click Here</Link>
-                     To Return Home Or Wait 5 Seconds
+                    This Listing Has An Error.
+                    <Link to="/">Click Here</Link>
+                    To Return Home Or Wait 5 Seconds
                 </h2>
-            )
+            );
         }
 
         return this.props.children;
